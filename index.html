@@ -148,20 +148,38 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-md-6">
-                    <form>
+                    <!-- Alert untuk validasi form -->
+                    <div class="alert alert-danger d-flex alert-dismissible fade show d-none my-alert" role="alert" id="alertFormKosong">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                        </svg>
+                        <div>
+                        Harap isi semua kolom sebelum mengirim!
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <div class="alert alert-success alert-dismissible fade show d-none my-alert" role="alert">
+                        <strong>Matursuwun!</strong> Pesan Anda berhasil saya terima.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <form name="kds-contact-form">
                         <div class="mb-3">
                             <label for="name" class="form-label">Nama Lengkap</label>
-                            <input type="text" class="form-control" id="name" aria-describedby="name" placeholder="Masukkan Nama Lengkap">
+                            <input type="text" class="form-control" id="name" aria-describedby="name" name="nama" placeholder="Masukkan Nama Lengkap">
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Alamat Email</label>
-                            <input type="email" class="form-control" id="email" aria-describedby="email" placeholder="nama@example.com">
+                            <input type="email" class="form-control" id="email" aria-describedby="email" name="email" placeholder="nama@example.com">
                         </div>
                         <div class="mb-3">
                             <label for="pesan" class="form-label">Kritik & Saran</label>
-                            <textarea class="form-control" id="pesan" rows="3"></textarea>
+                            <textarea class="form-control" id="pesan" rows="3" name="pesan"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary" style="background-color: #03a0cf !important;">Kirim</button>
+                        <button type="submit" class="btn btn-primary btn-kirim" style="background-color: #03a0cf !important;">Kirim</button>
+                        <button class="btn btn-primary btn-loading d-none" type="button" disabled>
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Loading...
+                        </button>
                     </form>
                 </div>
             </div>
@@ -172,5 +190,42 @@
         <p>Dibikin dengan penuh kasih sayang oleh <a href="https://www.instagram.com/kurrkur04/" class="text-white fw-bold">Kurniawan Dwi Saputra</a></p>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbznyouTbHn2pO73aBRZmBMd0d7o0A-dzkcgzsNVLgBrXVJKRqULAKDKm5zHng2t2_NI/exec'
+        const form = document.forms['kds-contact-form']
+        const btnKirim = document.querySelector('.btn-kirim')
+        const btnLoading = document.querySelector('.btn-loading')
+        const myAlert = document.querySelector('.my-alert')
+        const alertFormKosong = document.getElementById('alertFormKosong'); // Dapatkan elemen alert baru
+    
+        form.addEventListener('submit', e => {
+            e.preventDefault()
+            // Periksa jika form kosong
+            if (!form.nama.value || !form.email.value || !form.pesan.value) {
+                alertFormKosong.classList.remove('d-none'); // Tampilkan alert
+                return; // Hentikan fungsi jika form kosong
+            } else {
+                alertFormKosong.classList.add('d-none'); // Sembunyikan alert jika form diisi
+            }
+    
+            // Tampilkan tombol loading, hilangkan tombol kirim
+            btnLoading.classList.toggle('d-none')
+            btnKirim.classList.toggle('d-none')
+    
+            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            .then(response => {
+                // Tampilkan tombol kirim, hilangkan tombol loading
+                btnLoading.classList.toggle('d-none')
+                btnKirim.classList.toggle('d-none')
+                console.log('Success!', response)
+                // Tampilkan alert
+                myAlert.classList.toggle('d-none')
+                // Reset form
+                form.reset()
+            })
+            .catch(error => console.error('Error!', error.message))
+        })
+    </script>
 </body>
 </html>
