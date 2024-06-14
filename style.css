@@ -10,3 +10,26 @@
 section {
     padding-top: 5rem;
 }
+
+#carouselGallery .carousel-item img {
+    max-width: 60%; /* Atur lebar maksimal gambar */
+    margin: auto; /* Pusatkan gambar */
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 1.5s;
+}
+.carousel-item:hover .carousel-caption {
+    opacity: 1;
+}
+.carousel-control-prev, .carousel-control-next {
+    display: none;
+}
+.carousel:hover .carousel-control-prev,
+.carousel:hover .carousel-control-next {
+    display: block;
+}
