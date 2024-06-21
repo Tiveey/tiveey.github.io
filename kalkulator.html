@@ -1,112 +1,237 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Kalkulator | Website</title>
+   
+   <!-- Favicon -->
+   <link rel="icon" type="image/png" href="img/logo.png">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
    <style>
-      *{
-         padding: 0;
+      body {
+         background-image: url(img/bg.jpg);
+         background-size: cover;
+         background-attachment: fixed;
+         background-position: center 37px; /* Sesuaikan posisi background */
+         background-repeat: no-repeat;
+      }
+      html {
+         font-size: 62.5%;
+         box-sizing: border-box;
+      }
+      *,
+      *::before,
+      *::after {
          margin: 0;
-         font-family: 'poppins', sans-serif;
+         padding: 0;
+         box-sizing: inherit;
       }
-      body{
-         background-color: #495250;
-         display: grid;
-         height: 100vh;
-         place-items: center;
-      }
-      .main{
+      .calculator {
+         border: 1px solid #0c94be;
+         border-radius: 5px;
          width: 400px;
-         height: 450px;
-         background-color: white;
-         position: absolute;
-         border: 5px solid black;
-         border-radius: 6px; 
-      }
-      .main input[type='text'] {
-         width: 88%;
-         position: relative;
-         height: 80px;
-         top: 5px;
-         text-align: right;
-         padding: 3px 6px;
-         outline: none;
-         font-size: 40px;
-         border: 5px solid black;
-         display: flex;
          margin: auto;
-         border-radius: 6px;
-         color: black;
+         margin-top: 80px;
+         padding: 20px;
       }
-      .btn input[type='button']{
-         width:90px;
-         padding: 2px;
-         margin: 2px 0px;
-         position: relative;
-         left: 13px;
-         top: 20px;
+      .calculator-screen {
+         width: 100%;
+         height: 80px;
+         border: none;
+         background-color: #252525;
+         color: #fff;
+         text-align: right;
+         padding-right: 20px;
+         padding-left: 10px;
+         font-size: 4rem;
+         margin-bottom: 20px;
+      }
+      button {
          height: 60px;
-         cursor: pointer;
-         font-size: 18px;
-         transition: 0.5s;
-         background-color: #495250;
-         border-radius: 6px;
-         color: white;
+         font-size: 2rem!important;
       }
-      .btn input[type='button']:hover{
-         background-color: black;
-         color: white;
+      .equal-sign {
+         height: 98%;
+         grid-area: 2 / 4 / 6 / 5;
+      }
+      .calculator-keys {
+         display: grid;
+         grid-template-columns: repeat(4, 1fr);
+         grid-gap: 20px;
+      }
+      /* Tambahkan gaya untuk navbar dan nav item */
+      .navbar-nav .nav-link {
+         font-size: 1.6rem; /* Perbesar ukuran teks */
+         padding: 10px 15px; /* Tambahkan padding untuk memperbesar area klik */
+      }
+      .navbar-brand img {
+         height: 50px; /* Perbesar logo */
       }
    </style>
-   <script>
-      function Solve(val) {
-         var v = document.getElementById('res');
-         v.value += val;
-      }
-      function Result() {
-         var num1 = document.getElementById('res').value;
-         var num2 = eval(num1);
-         document.getElementById('res').value = num2;
-      }
-      function Clear() {
-         var inp = document.getElementById('res');
-         inp.value = '';
-      }
-      function Back() {
-         var ev = document.getElementById('res');
-         ev.value = ev.value.slice(0,-1);
-      }
-   </script>
-   <title>Calulator</title>
 </head>
+
 <body>
-   <div class="main">
-      <input type="text" id = 'res'>
-      <div class="btn">
-         <input type="button" value = 'C' onclick = "Clear()">
-         <input type="button" value = '%' onclick = "Solve('%')">
-         <input type="button" value = '←' onclick ="Back('←')">
-         <input type="button" value = '/' onclick = "Solve('/')">
-         <br>
-         <input type="button" value = '7' onclick = "Solve('7')">
-         <input type="button" value = '8' onclick = "Solve('8')">
-         <input type="button" value = '9' onclick = "Solve('9')">
-         <input type="button" value = 'x' onclick = "Solve('*')">
-         <br>
-         <input type="button" value = '4' onclick = "Solve('4')">
-         <input type="button" value = '5' onclick = "Solve('5')">
-         <input type="button" value = '6' onclick = "Solve('6')">
-         <input type="button" value = '-' onclick = "Solve('-')">
-         <br>
-         <input type="button" value = '1' onclick = "Solve('1')">
-         <input type="button" value = '2' onclick = "Solve('2')">
-         <input type="button" value = '3' onclick = "Solve('3')">
-         <input type="button" value = '+' onclick = "Solve('+')">
-         <br>
-         <input type="button" value = '00'onclick = "Solve('00')">
-         <input type="button" value = '0' onclick = "Solve('0')">
-         <input type="button" value = '.' onclick = "Solve('.')">
-         <input type="button" value = '=' onclick = "Result()">
+   <nav class="navbar navbar-expand-lg navbar-dark shadow-sm fixed-top" 
+      style="background-color: #fac84f;">
+      <div class="container-fluid">
+         <!-- Ubah dari teks menjadi logo -->
+         <a class="navbar-brand" href="#">
+            <img class="logo" img src="img/logo3.png" alt="Logo" height="40"> <!-- Sesuaikan height sesuai kebutuhan -->
+         </a>
+         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navbarNavDropdown" >
+            <ul class="navbar-nav ms-auto">
+               <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="index.html">About</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="index.html">Gallery</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="index.html">Project</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="index.html">Contact</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="#calculator" target="_blank">Kalkulator</a> <!-- Ubah 'url_kalkulator_anda' dengan URL sebenarnya -->
+               </li>
+            </ul>
+         </div>
       </div>
-   </div>
-   <script src = 'Calc.js' ></script>
+   </nav>
+   <section class="calculator card">
+      <input type="text" class="calculator-screen z-depth-1" value="" disabled />
+      <div class="calculator-keys">
+         <button type="button" class="operator btn btn-info" value="+">+</button>
+         <button type="button" class="operator btn btn-info" value="-">-</button>
+         <button type="button" class="operator btn btn-info" value="*">&times;</button>
+         <button type="button" class="operator btn btn-info" value="/">&divide;</button>
+
+         <button type="button" value="7" class="btn btn-light waves-effect">7</button>
+         <button type="button" value="8" class="btn btn-light waves-effect">8</button>
+         <button type="button" value="9" class="btn btn-light waves-effect">9</button>
+
+         <button type="button" value="4" class="btn btn-light waves-effect">4</button>
+         <button type="button" value="5" class="btn btn-light waves-effect">5</button>
+         <button type="button" value="6" class="btn btn-light waves-effect">6</button>
+
+         <button type="button" value="1" class="btn btn-light waves-effect">1</button>
+         <button type="button" value="2" class="btn btn-light waves-effect">2</button>
+         <button type="button" value="3" class="btn btn-light waves-effect">3</button>
+
+         <button type="button" value="0" class="btn btn-light waves-effect">0</button>
+         <button type="button" class="decimal function btn btn-secondary" value=".">.</button>
+         <button type="button" class="all-clear function btn btn-danger btn-sm" value="all-clear">AC</button>
+
+         <button type="button" class="equal-sign operator btn btn-default" value="=">=</button>
+      </div>
+   </section>
+
+   <script>
+      const calculator = {
+         displayValue: '0',
+         firstOperand: null,
+         waitingForSecondOperand: false,
+         operator: null,
+      };
+
+      function inputDigit(digit) {
+         const { displayValue, waitingForSecondOperand } = calculator;
+
+         if (waitingForSecondOperand === true) {
+            calculator.displayValue = digit;
+            calculator.waitingForSecondOperand = false;
+         } else {
+            calculator.displayValue = displayValue === '0' ? digit : displayValue + digit;
+         }
+      }
+
+      function inputDecimal(dot) {
+         if (!calculator.displayValue.includes(dot)) {
+            calculator.displayValue += dot;
+         }
+      }
+
+      function handleOperator(nextOperator) {
+         const { firstOperand, displayValue, operator } = calculator;
+         const inputValue = parseFloat(displayValue);
+
+         if (operator && calculator.waitingForSecondOperand) {
+            calculator.operator = nextOperator;
+            return;
+         }
+
+         if (firstOperand == null) {
+            calculator.firstOperand = inputValue;
+         } else if (operator) {
+            const currentValue = firstOperand || 0;
+            const result = performCalculation[operator](currentValue, inputValue);
+
+            calculator.displayValue = String(result);
+            calculator.firstOperand = result;
+         }
+
+         calculator.waitingForSecondOperand = true;
+         calculator.operator = nextOperator;
+      }
+
+      const performCalculation = {
+         '/': (firstOperand, secondOperand) => firstOperand / secondOperand,
+         '*': (firstOperand, secondOperand) => firstOperand * secondOperand,
+         '+': (firstOperand, secondOperand) => firstOperand + secondOperand,
+         '-': (firstOperand, secondOperand) => firstOperand - secondOperand,
+         '=': (firstOperand, secondOperand) => secondOperand
+      };
+
+      function resetCalculator() {
+         calculator.displayValue = '0';
+         calculator.firstOperand = null;
+         calculator.waitingForSecondOperand = false;
+         calculator.operator = null;
+      }
+
+      function updateDisplay() {
+         const display = document.querySelector('.calculator-screen');
+         display.value = calculator.displayValue;
+      }
+
+      updateDisplay();
+
+      const keys = document.querySelector('.calculator-keys');
+      keys.addEventListener('click', (event) => {
+         const { target } = event;
+         if (!target.matches('button')) {
+            return;
+         }
+
+         if (target.classList.contains('operator')) {
+            handleOperator(target.value);
+            updateDisplay();
+            return;
+         }
+
+         if (target.classList.contains('decimal')) {
+            inputDecimal(target.value);
+            updateDisplay();
+            return;
+         }
+
+         if (target.classList.contains('all-clear')) {
+            resetCalculator();
+            updateDisplay();
+            return;
+         }
+
+         inputDigit(target.value);
+         updateDisplay();
+      });
+   </script>
 </body>
 </html>
